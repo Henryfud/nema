@@ -20,7 +20,7 @@ bash scripts/fetch_genome.sh               # needs internet, about 100 MB
 ## Rules
 
 - No em dashes and no double hyphens in prose. Plain, human sounding sentences.
-- The site shows a small "CA: coming soon" line at the top, by the owner's decision on 2026-10-05. Do not add wallet, trading, price or other financial features unless the owner asks.
+- The site shows the token contract address in a bar at the top (added by the owner's decision, "coming soon" on 2026-10-05, the address on 2026-10-13). Do not add wallet, trading, price or other financial features unless the owner asks.
 - Never invent a number, a sequence, an edge or a citation. Every figure traces to `docs/research/`.
 - Citations marked "recall" in `docs/research/07-reading-list.md` must be verified before they appear in public copy.
 - Do not push or create a repository without the user saying yes.

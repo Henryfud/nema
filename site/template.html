@@ -40,7 +40,11 @@ a { color: inherit; }
 .mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; }
 
 /* top bar */
-.cabar { background: var(--lime); color: var(--ink); text-align: center; padding: 7px 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; position: relative; z-index: 21; }
+.cabar { background: var(--lime); color: var(--ink); text-align: center; padding: 7px 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; position: relative; z-index: 21; overflow-wrap: anywhere; }
+.cabar .ca { font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px dashed currentColor; padding: 0; cursor: pointer; letter-spacing: 0.02em; overflow-wrap: anywhere; }
+.cabar .ca:hover { border-bottom-style: solid; }
+#caMsg { margin-left: 8px; opacity: 0.75; }
+@media (max-width: 520px) { .cabar { font-size: 9px; letter-spacing: 0; padding-inline: 6px; } .cabar .ca { letter-spacing: 0; } }
 
 /* nav */
 .nav {
@@ -243,7 +247,7 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
 <canvas id="fieldLabels" aria-hidden="true"></canvas>
 
 <div class="page">
-  <div class="cabar mono" role="note">CA: coming soon</div>
+  <div class="cabar mono" role="note">CA: <button type="button" class="ca" id="caCopy" data-ca="HKRvkxVUTT3ySfebkod9j5KL2M57KYzzmVBy4C6Vpump" aria-label="Copy the contract address">HKRvkxVUTT3ySfebkod9j5KL2M57KYzzmVBy4C6Vpump</button><span id="caMsg" aria-live="polite"></span></div>
   <header class="nav">
     <div class="wrap">
       <a class="logo" href="#top"><img src="__LOGO__" alt="" width="30" height="30">WERM</a>
@@ -606,6 +610,13 @@ const PAL = { blue: [51, 51, 234], violet: [138, 34, 184], orchid: [190, 80, 232
 document.querySelectorAll("[data-gh]").forEach((a) => (a.href = GH));
 document.querySelectorAll(".code").forEach((el) => {
   for (const n of el.childNodes) if (n.nodeType === 3) n.textContent = n.textContent.replace(/GH_URL/g, GH);
+});
+// the contract address in the top bar copies on click
+$("caCopy").addEventListener("click", async () => {
+  const ca = $("caCopy").dataset.ca;
+  try { await navigator.clipboard.writeText(ca); $("caMsg").textContent = "copied"; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents($("caCopy")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); $("caMsg").textContent = "selected"; }
+  setTimeout(() => ($("caMsg").textContent = ""), 1400);
 });
 document.querySelectorAll(".copy").forEach((b) => b.addEventListener("click", async () => {
   const el = $(b.dataset.copy);
