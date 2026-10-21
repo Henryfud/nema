@@ -1,6 +1,6 @@
 # Synapse signs and the GABA list
 
-A wiring diagram says which neurons touch. It does not say whether a synapse excites or inhibits its target. That depends on the transmitter the presynaptic cell releases and on the receptors the target carries. WERM uses one simple rule:
+A wiring diagram says which neurons touch. It does not say whether a synapse excites or inhibits its target. That depends on the transmitter the presynaptic cell releases and on the receptors the target carries. NEMA uses one simple rule:
 
 > A chemical synapse is inhibitory if the presynaptic neuron is a conventional GABA neuron. Every other chemical synapse is excitatory. Gap junctions have no sign. They pass current toward whichever side is lower.
 
@@ -52,5 +52,5 @@ The RIB fix and the new parameters each remove about half of the lean. See `docs
 
 ## What this rule gets wrong
 
-- **Glutamate can inhibit.** The same transmitter can excite one target and inhibit another, depending on the receptors the target carries (for glutamate, ionotropic receptors versus glutamate gated chloride channels). This is background knowledge recorded in `docs/research/02-connectome.md`, section 2.3, not something WERM measures. Getting those right needs receptor expression per target cell, which WERM does not model. The touch neurons are a likely example: their chemical synapses onto the opposite direction command cells are a plausible reason head touch is the weakest reflex in the model. See `docs/RESULTS.md`.
+- **Glutamate can inhibit.** The same transmitter can excite one target and inhibit another, depending on the receptors the target carries (for glutamate, ionotropic receptors versus glutamate gated chloride channels). This is background knowledge recorded in `docs/research/02-connectome.md`, section 2.3, not something NEMA measures. Getting those right needs receptor expression per target cell, which NEMA does not model. The touch neurons are a likely example: their chemical synapses onto the opposite direction command cells are a plausible reason head touch is the weakest reflex in the model. See `docs/RESULTS.md`.
 - **Maps for the other transmitters exist** and are the obvious next step: acetylcholine (Pereira et al. 2015, eLife 4:e12432, [doi:10.7554/eLife.12432](https://doi.org/10.7554/eLife.12432)) and glutamate (Serrano-Saiz et al. 2013, Cell 155:659, [doi:10.1016/j.cell.2013.09.052](https://doi.org/10.1016/j.cell.2013.09.052)).

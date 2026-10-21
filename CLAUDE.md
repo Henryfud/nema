@@ -1,6 +1,6 @@
-# WERM, notes for Claude Code
+# NEMA, notes for Claude Code
 
-WERM stands for Wiring-Encoded Recurrent Modulator. A 302 neuron network on the real *C. elegans* wiring diagram, a long scroll site, and a steering layer for local language models.
+NEMA (short for nematode; the project was called WERM until 2026-10-21) is a 302 neuron network on the real *C. elegans* wiring diagram, a long scroll site, and a steering layer for local language models.
 
 `HANDOFF.md` is the original handoff. `AUDIT.md` records what was checked and changed after it, and `docs/RESULTS.md` holds what has been measured. Read those before changing the model.
 
@@ -19,6 +19,8 @@ bash scripts/fetch_genome.sh               # needs internet, about 100 MB
 
 ## Rules
 
+- Brand: NEMA, agar amber palette (ink #120a05, amber #f2a93b, cream #f6e7c8, rust #8a3f12, ember #c4621f), the dish logo in `site/assets/logo.png`. The site and README still link werm.si and @WERM_si until the owner gives new ones.
+- Public copy may be bold and visionary, but never states invented results or abilities as fact: the token address is on the site.
 - No em dashes and no double hyphens in prose. Plain, human sounding sentences.
 - The site shows the token contract address in a bar at the top (added by the owner's decision, "coming soon" on 2026-10-05, the address on 2026-10-13). Do not add wallet, trading, price or other financial features unless the owner asks.
 - Never invent a number, a sequence, an edge or a citation. Every figure traces to `docs/research/`.

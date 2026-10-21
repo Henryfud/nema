@@ -1,5 +1,5 @@
 {
-  "name": "werm",
+  "name": "nema",
   "version": "0.1.0",
   "description": "A 302 neuron model built on the real C. elegans connectome, with a steering layer for local language models.",
   "type": "module",

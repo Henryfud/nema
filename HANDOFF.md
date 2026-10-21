@@ -1,3 +1,5 @@
+> **Renamed, 2026-10-21.** WERM is now **NEMA** (short for nematode). This handoff is kept as written. The repository is github.com/Henryfud/nema.
+
 # WERM handoff for Claude Code
 
 **WERM = Wiring-Encoded Recurrent Modulator.**

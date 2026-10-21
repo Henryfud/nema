@@ -1,6 +1,6 @@
 # Audit
 
-The first version of WERM was built in one session in a sandbox that could not reach NCBI, could not run a language model, and could not push to GitHub. This file records the audit that followed: what was checked, what changed, and what could not be verified. It was done on 2026-10-05 with Node 25.3 on macOS. CI repeats the checks on Node 20 and 22.
+The first version of NEMA was built in one session in a sandbox that could not reach NCBI, could not run a language model, and could not push to GitHub. This file records the audit that followed: what was checked, what changed, and what could not be verified. It was done on 2026-10-05 with Node 25.3 on macOS. CI repeats the checks on Node 20 and 22.
 
 Short version: the data and the genome check out exactly. The model had two real bugs, both now fixed. A resting network ignited by itself after about 2.5 s, and one GABA cell class was missing. The claim that "three of four reflex checks pass" turned out to be the wrong measure, and the site, README and docs now report a better one. Most citations were from memory. They have now been checked against Crossref or the publisher, and every one that appears in public copy has a DOI.
 

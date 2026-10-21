@@ -1,4 +1,4 @@
-// WERM: a liquid time-constant style rate network on the real C. elegans wiring diagram.
+// NEMA: a liquid time-constant style rate network on the real C. elegans wiring diagram.
 //
 // What this is: 302 units wired exactly like the Cook et al. 2019 hermaphrodite connectome,
 // each with its own leaky state that speeds up or slows down depending on how much input it gets

@@ -22,7 +22,7 @@ if (cmd === "sim") {
 } else if (cmd === "connect" || cmd === "chat") {   // "chat" is the older name for the same command
   // two engines: Ollama's own API (default), or any server with the OpenAI chat API (--base-url)
   const baseUrl = flag("base-url", null);
-  const apiKey = process.env.WERM_API_KEY;
+  const apiKey = process.env.NEMA_API_KEY ?? process.env.WERM_API_KEY;   // the old name still works
   const model = flag("model", baseUrl ? undefined : "llama3.2");
   const host = flag("host", "http://localhost:11434");
   if (baseUrl && !model) { console.log("Give the model name your server uses, for example: --model qwen2.5-7b-instruct"); process.exit(1); }
@@ -34,7 +34,7 @@ if (cmd === "sim") {
   w.run(1);
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   const history = [];
-  console.log(`WERM connected to ${model}. Type a message, or 'exit' (or Ctrl+D) to quit.\n`);
+  console.log(`NEMA connected to ${model}. Type a message, or 'exit' (or Ctrl+D) to quit.\n`);
   let closed = false;
   rl.on("close", () => (closed = true));
   const prompt = () => { if (!closed) rl.prompt(); };   // input may already be closed when piped
@@ -70,7 +70,7 @@ if (cmd === "sim") {
   const out = { stimuli: keys, mode: s.mode, summary: s.summary, ollama_options: s.options, openai_params: openai.toOpenAI(s.options), system_prompt: systemPrompt(s.mode) };
   console.log(JSON.stringify(out, null, 2));
 } else {
-  console.log(`WERM
+  console.log(`NEMA
   node src/cli.mjs sim  [--stim ${Object.keys(STIMULI).join("|")}|none] [--seconds 3]
   node src/cli.mjs connect [--model llama3.2] [--host http://localhost:11434]     with Ollama
   node src/cli.mjs connect --base-url http://localhost:1234/v1 --model NAME      with any OpenAI style local server

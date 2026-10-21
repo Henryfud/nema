@@ -1,14 +1,14 @@
-<p align="center"><img src="site/assets/logo.png" alt="WERM logo" width="120"></p>
+<p align="center"><img src="site/assets/logo.png" alt="NEMA logo" width="120"></p>
 
-# WERM
+# NEMA
 
-**W**iring-**E**ncoded **R**ecurrent **M**odulator
+**Life wired it. We switched it on.**
 
-A 302 neuron model built on the real wiring diagram of *Caenorhabditis elegans*, with a small steering layer that lets its state nudge a local language model. It runs in a browser tab, in Node, or connected to a language model on your own computer through Ollama or any OpenAI style local server.
+NEMA, short for nematode, is a 302 neuron model built on the real wiring diagram of *Caenorhabditis elegans*, with a small steering layer that lets its state nudge a local language model. It runs in a browser tab, in Node, or connected to a language model on your own computer through Ollama or any OpenAI style local server.
 
 [werm.si](https://werm.si) · [@WERM_si on X](https://x.com/WERM_si)
 
-[![ci](https://github.com/Henryfud/werm/actions/workflows/ci.yml/badge.svg)](https://github.com/Henryfud/werm/actions/workflows/ci.yml)
+[![ci](https://github.com/Henryfud/nema/actions/workflows/ci.yml/badge.svg)](https://github.com/Henryfud/nema/actions/workflows/ci.yml)
 
 The site in `site/` is a long scroll page with a generative pixel worm field, a live connectome globe, the genome drawn to scale from the real sequence, and long form notes. The code in `src/` is the same code the site runs.
 
@@ -40,8 +40,8 @@ The site in `site/` is a long scroll page with a generative pixel worm field, a 
 ## Quick start
 
 ```bash
-git clone https://github.com/Henryfud/werm
-cd werm
+git clone https://github.com/Henryfud/nema
+cd nema
 npm test
 node src/cli.mjs sim --stim touch-tail --seconds 3
 ```
@@ -59,7 +59,7 @@ They use every CPU core and take a few minutes.
 
 ## Run it locally with Ollama or any local engine
 
-WERM runs entirely on your own computer. Connect it to a language model running locally and every message you send goes through the worm first: it pokes the worm's sensory neurons, the brain runs for a moment, and the worm's state sets the model's sampling settings and a one line tone. Nothing leaves your machine.
+NEMA runs entirely on your own computer. Connect it to a language model running locally and every message you send goes through the worm first: it pokes the worm's sensory neurons, the brain runs for a moment, and the worm's state sets the model's sampling settings and a one line tone. Nothing leaves your machine.
 
 ### With Ollama
 
@@ -76,7 +76,7 @@ If Ollama is not running, or the model is missing, the command says so and tells
 
 ### With LM Studio, llama.cpp, vLLM or another engine
 
-Anything that serves the OpenAI chat completions API works. Start the engine's local server, then point WERM at it with `--base-url` and the model name the server uses:
+Anything that serves the OpenAI chat completions API works. Start the engine's local server, then point NEMA at it with `--base-url` and the model name the server uses:
 
 ```bash
 node src/cli.mjs connect --base-url http://localhost:1234/v1 --model YOUR_MODEL
@@ -89,7 +89,7 @@ node src/cli.mjs connect --base-url http://localhost:1234/v1 --model YOUR_MODEL
 | vLLM | `vllm serve your-model` | `http://localhost:8000/v1` |
 | Ollama, OpenAI style | runs with Ollama | `http://localhost:11434/v1` |
 
-On these servers WERM sends `temperature`, `top_p` and `max_tokens`. The repeat penalty is not part of that API, so it is left out. If your server needs a key, set `WERM_API_KEY`.
+On these servers NEMA sends `temperature`, `top_p` and `max_tokens`. The repeat penalty is not part of that API, so it is left out. If your server needs a key, set `NEMA_API_KEY`.
 
 ### In your own code, with any engine
 

@@ -2,7 +2,7 @@
 
 Tags: `[S]` seen in a fetched source. `[K]` background knowledge to verify before publishing.
 
-This is the part of WERM with the thinnest evidence. The wiring, the genome and the neuron model are grounded in measured data and published work. The step from "worm state" to "how a language model talks" is a design choice, and this file sets out the theory behind it, what it can and cannot do, and the experiments that would show whether it is worth keeping.
+This is the part of NEMA with the thinnest evidence. The wiring, the genome and the neuron model are grounded in measured data and published work. The step from "worm state" to "how a language model talks" is a design choice, and this file sets out the theory behind it, what it can and cannot do, and the experiments that would show whether it is worth keeping.
 
 ## 6.1 What the layer actually does
 
@@ -28,7 +28,7 @@ It also maps text to stimuli with simple regular expressions: a question pokes t
 
 **Why a connectome and not a random network?** This is the claim that most needs evidence. A random recurrent network with the same size and density would also produce smooth correlated state. The reason to use the worm is that the structure is real and carries a story people can follow (touch the tail and the forward command rises). Whether the real wiring does anything a degree matched random graph cannot is exactly what the null model experiment below tests.
 
-**Deeper ways to steer a model, for context.** Researchers can intervene on a model's internal activations instead of its sampling settings. Examples include activation addition (Turner et al. 2023), representation engineering (Zou et al. 2023) and inference time intervention (Li et al. 2023). [K, verify titles and venues] These change the content of the computation, not only its randomness, and they need open weights and access to hidden states. A local model served through Ollama does not expose hidden states, so WERM stays at the sampling layer. A future version using llama.cpp or Hugging Face Transformers could inject a worm derived vector into the residual stream. That would be a more interesting experiment and a bigger claim, and it should be tested before it is described.
+**Deeper ways to steer a model, for context.** Researchers can intervene on a model's internal activations instead of its sampling settings. Examples include activation addition (Turner et al. 2023), representation engineering (Zou et al. 2023) and inference time intervention (Li et al. 2023). [K, verify titles and venues] These change the content of the computation, not only its randomness, and they need open weights and access to hidden states. A local model served through Ollama does not expose hidden states, so NEMA stays at the sampling layer. A future version using llama.cpp or Hugging Face Transformers could inject a worm derived vector into the residual stream. That would be a more interesting experiment and a bigger claim, and it should be tested before it is described.
 
 ## 6.3 What it cannot do
 

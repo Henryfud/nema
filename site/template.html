@@ -1,18 +1,18 @@
-<title>WERM</title>
+<title>NEMA</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Martian+Mono:wght@300;400;500&display=swap">
 <style>
 /* Layout concept: one long descent. A pixel-dithered field of worms is fixed behind everything and reacts to scroll.
    Full-bleed sections stack over it: hero, brain globe, body, genome, notes. Reading text sits on a solid panel. */
 :root {
-  --ink: #03050f;
-  --ink-2: #090c22;
-  --panel: #0a0e29;
-  --paper: #ece8e1;
-  --dim: #a09db4;
-  --violet: #8a22b8;
-  --blue: #3333ea;
-  --lime: #c9ff2e;
-  --rule: rgba(236, 232, 225, 0.24);
+  --ink: #120a05;
+  --ink-2: #1c1008;
+  --panel: #24150a;
+  --paper: #f6e7c8;
+  --dim: #b89c7b;
+  --rust: #8a3f12;
+  --ember: #c4621f;
+  --amber: #f2a93b;
+  --rule: rgba(246, 231, 200, 0.22);
   --display: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
   --mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   color-scheme: dark;
@@ -29,7 +29,7 @@ body {
   overflow-x: hidden;
 }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 #field {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
   image-rendering: pixelated; image-rendering: crisp-edges;
@@ -40,7 +40,7 @@ a { color: inherit; }
 .mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; }
 
 /* top bar */
-.cabar { background: var(--lime); color: var(--ink); text-align: center; padding: 7px 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; position: relative; z-index: 21; overflow-wrap: anywhere; }
+.cabar { background: var(--amber); color: var(--ink); text-align: center; padding: 7px 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; position: relative; z-index: 21; overflow-wrap: anywhere; }
 .cabar .ca { font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px dashed currentColor; padding: 0; cursor: pointer; letter-spacing: 0.02em; overflow-wrap: anywhere; }
 .cabar .ca:hover { border-bottom-style: solid; }
 #caMsg { margin-left: 8px; opacity: 0.75; }
@@ -49,7 +49,7 @@ a { color: inherit; }
 /* nav */
 .nav {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
-  background: linear-gradient(var(--ink) 40%, rgba(3, 5, 15, 0));
+  background: linear-gradient(var(--ink) 40%, rgba(18, 10, 5, 0));
   padding-block: 16px;
 }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -57,25 +57,25 @@ a { color: inherit; }
 .logo img { width: 30px; height: 30px; image-rendering: pixelated; border-radius: 4px; }
 .navend { display: flex; align-items: center; gap: 10px; }
 .xlink { display: inline-grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--rule); border-radius: 3px; color: var(--paper); }
-.xlink:hover { border-color: var(--lime); color: var(--lime); }
-.logo b { color: var(--lime); font-weight: 600; }
+.xlink:hover { border-color: var(--amber); color: var(--amber); }
+.logo b { color: var(--amber); font-weight: 600; }
 .nav nav { display: flex; gap: 22px; font-family: var(--mono); font-size: 12px; }
 .nav nav a { text-decoration: none; opacity: 0.85; }
-.nav nav a:hover { opacity: 1; color: var(--lime); }
+.nav nav a:hover { opacity: 1; color: var(--amber); }
 .btn {
-  display: inline-block; background: var(--lime); color: var(--ink);
+  display: inline-block; background: var(--amber); color: var(--ink);
   font-family: var(--mono); font-size: 12px; font-weight: 500; text-decoration: none;
   padding: 12px 18px; border-radius: 3px; border: 0; cursor: pointer;
 }
 .btn:hover { background: #fff; }
 .btn.ghost { background: transparent; color: var(--paper); border: 1px solid var(--rule); }
-.btn.ghost:hover { border-color: var(--lime); color: var(--lime); }
+.btn.ghost:hover { border-color: var(--amber); color: var(--amber); }
 @media (max-width: 760px) { .nav nav { display: none; } }
 
 /* hero */
 .hero { padding-top: 40px; padding-bottom: 0; min-height: 1040px; position: relative; }
 .hero h1 {
-  font-size: clamp(60px, 12.5vw, 190px);
+  font-size: clamp(54px, 8.4vw, 140px);
   line-height: 0.88; letter-spacing: -0.055em; font-weight: 600; margin: 0;
   max-width: 11ch; text-wrap: balance;
 }
@@ -89,8 +89,16 @@ a { color: inherit; }
   display: flex; flex-wrap: wrap; gap: 4px 0.55em; margin-top: 30px;
   font-size: clamp(34px, 6.2vw, 88px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;
 }
-.acronym b { color: var(--lime); font-weight: 700; }
+.acronym b { color: var(--amber); font-weight: 700; }
 .acro-sub { max-width: 62ch; margin: 16px 0 0; line-height: 1.7; opacity: 0.88; }
+.kicker { margin: 10px 0 18px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); }
+.kicker i { text-transform: none; letter-spacing: 0.04em; }
+.manifesto { max-width: 34ch; font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; letter-spacing: -0.015em; margin: 34px 0 0; text-wrap: pretty; }
+#boot { position: fixed; inset: 0; z-index: 100; background: var(--ink); display: grid; place-items: center; font-family: var(--mono); color: var(--paper); pointer-events: none; }
+#boot pre { font: inherit; font-size: clamp(11px, 1.3vw, 15px); line-height: 2; margin: 0; padding: 0 20px; white-space: pre-wrap; max-width: 100%; }
+#boot .hd { color: var(--amber); letter-spacing: 0.2em; }
+#boot .ok { color: var(--amber); }
+#boot img { width: 64px; height: 64px; image-rendering: pixelated; display: block; margin-bottom: 18px; }
 .hint { max-width: 62ch; margin: 22px 0 0; line-height: 1.7; opacity: 0.7; }
 #fieldLabels { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
 .hero .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
@@ -100,7 +108,7 @@ a { color: inherit; }
   padding: 8px 12px; background: var(--ink); font-family: var(--mono); font-size: 11px; line-height: 1.5;
   position: relative; z-index: 2; margin-bottom: -2px;
 }
-.tag .dot { display: inline-block; width: 7px; height: 7px; background: var(--lime); border-radius: 50%; margin-right: 6px; }
+.tag .dot { display: inline-block; width: 7px; height: 7px; background: var(--amber); border-radius: 50%; margin-right: 6px; }
 .stat {
   border: 1.5px solid var(--paper); border-radius: 12px; background: var(--ink);
   padding: 14px 16px 12px; font-family: var(--mono); font-size: 11px;
@@ -115,20 +123,20 @@ a { color: inherit; }
 
 /* sections */
 section.band { padding-block: 110px; position: relative; }
-.band.solid { background: linear-gradient(180deg, rgba(3, 5, 15, 0), rgba(3, 5, 15, 0.38) 220px, rgba(3, 5, 15, 0.38) calc(100% - 120px), rgba(3, 5, 15, 0)); }
+.band.solid { background: linear-gradient(180deg, rgba(18, 10, 5, 0), rgba(18, 10, 5, 0.38) 220px, rgba(18, 10, 5, 0.38) calc(100% - 120px), rgba(18, 10, 5, 0)); }
 h2 { font-size: clamp(38px, 6vw, 84px); line-height: 0.95; letter-spacing: -0.045em; font-weight: 600; margin: 0 0 24px; max-width: 14ch; text-wrap: balance; }
 h3 { font-size: 26px; letter-spacing: -0.02em; margin: 44px 0 12px; font-weight: 600; text-wrap: balance; }
 .sub { max-width: 58ch; color: var(--paper); opacity: 0.88; margin: 0 0 40px; }
 .twocol { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 36px; align-items: start; }
 @media (max-width: 900px) { .twocol { grid-template-columns: minmax(0, 1fr); } }
-.frame { border: 1.5px solid var(--paper); border-radius: 14px; background: rgba(3, 5, 15, 0.82); overflow: hidden; }
+.frame { border: 1.5px solid var(--paper); border-radius: 14px; background: rgba(18, 10, 5, 0.82); overflow: hidden; }
 .frame .bar { display: flex; justify-content: space-between; gap: 12px; padding: 9px 14px; border-bottom: 1px dashed var(--paper); font-family: var(--mono); font-size: 11px; flex-wrap: wrap; }
 
 /* four ideas */
 section.about { padding-block: 40px 0; }
-.ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border: 1.5px solid var(--paper); border-radius: 14px; background: rgba(3, 5, 15, 0.86); overflow: hidden; }
+.ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border: 1.5px solid var(--paper); border-radius: 14px; background: rgba(18, 10, 5, 0.86); overflow: hidden; }
 .ideas div { padding: 18px 18px 20px; border-right: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); margin: 0 -1px -1px 0; }
-.ideas h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; color: var(--lime); margin: 0 0 8px; }
+.ideas h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; color: var(--amber); margin: 0 0 8px; }
 .ideas p { margin: 0; font-size: 15px; line-height: 1.5; }
 
 /* globe */
@@ -140,37 +148,37 @@ section.about { padding-block: 40px 0; }
 .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-bottom: 18px; }
 .controls button {
   font-family: var(--mono); font-size: 11px; text-align: left; padding: 11px 12px; color: var(--paper);
-  background: rgba(3, 5, 15, 0.8); border: 1px solid var(--rule); border-radius: 4px; cursor: pointer;
+  background: rgba(18, 10, 5, 0.8); border: 1px solid var(--rule); border-radius: 4px; cursor: pointer;
 }
-.controls button:hover { border-color: var(--lime); }
-.controls button[aria-pressed="true"] { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.controls button:hover { border-color: var(--amber); }
+.controls button[aria-pressed="true"] { background: var(--amber); color: var(--ink); border-color: var(--amber); }
 .meters { display: grid; gap: 12px; }
 .cmpbtn { margin-top: 18px; }
 .cmp { margin-top: 14px; display: grid; gap: 12px; }
 .cmp p { margin: 0; line-height: 1.7; opacity: 0.8; }
 .dmeter { font-family: var(--mono); font-size: 11px; }
 .dmeter .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.dtrack { position: relative; height: 12px; border: 1px solid var(--paper); border-radius: 2px; background: rgba(3, 5, 15, 0.7); overflow: hidden; }
+.dtrack { position: relative; height: 12px; border: 1px solid var(--paper); border-radius: 2px; background: rgba(18, 10, 5, 0.7); overflow: hidden; }
 .dtrack i { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--paper); }
-.dfill { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; background: var(--lime); }
-.dfill.s { background: var(--violet); }
+.dfill { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; background: var(--amber); }
+.dfill.s { background: var(--rust); }
 .meter { font-family: var(--mono); font-size: 11px; }
 .meter .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.meter .track { height: 10px; border: 1px solid var(--paper); border-radius: 2px; overflow: hidden; background: rgba(3, 5, 15, 0.7); }
-.meter .fill { height: 100%; width: 0%; background: var(--violet); transition: width 0.12s linear; }
-.meter.f .fill { background: var(--lime); }
-.meter.b .fill { background: var(--blue); }
+.meter .track { height: 10px; border: 1px solid var(--paper); border-radius: 2px; overflow: hidden; background: rgba(18, 10, 5, 0.7); }
+.meter .fill { height: 100%; width: 0%; background: var(--rust); transition: width 0.12s linear; }
+.meter.f .fill { background: var(--amber); }
+.meter.b .fill { background: var(--ember); }
 .params { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 11px; }
 .params td, .params th { text-align: left; padding: 8px 10px; border-bottom: 1px dashed var(--rule); vertical-align: top; }
 .params th { font-weight: 400; color: var(--dim); }
-.params td.v { color: var(--lime); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.params td.v { color: var(--amber); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* body */
-#bodyStage { width: 100%; height: 340px; display: block; image-rendering: pixelated; background: rgba(3, 5, 15, 0.7); }
+#bodyStage { width: 100%; height: 340px; display: block; image-rendering: pixelated; background: rgba(18, 10, 5, 0.7); }
 .anat { overflow-x: auto; }
 .anat svg { min-width: 760px; width: 100%; display: block; }
 .anat .draw { fill: none; stroke: var(--paper); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 0; vector-effect: non-scaling-stroke; }
-.anat .hot { stroke: var(--lime); }
+.anat .hot { stroke: var(--amber); }
 .anat text { font-family: var(--mono); font-size: 11px; fill: var(--paper); }
 .anat line.lead { stroke: var(--dim); stroke-width: 1; stroke-dasharray: 3 3; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px; }
@@ -178,11 +186,11 @@ section.about { padding-block: 40px 0; }
 .step.wide { grid-column: 1 / -1; }
 .step .code { border: 0; border-radius: 0; border-bottom: 1px dashed var(--rule); }
 .step > p.mono { margin: 0; padding: 12px 14px 16px; line-height: 1.7; opacity: 0.8; }
-.step code, #run .mono code { font-family: var(--mono); background: #101436; padding: 1px 5px; border-radius: 3px; }
-.params.engines td:last-child { color: var(--lime); word-break: break-all; }
+.step code, #run .mono code { font-family: var(--mono); background: #2a180b; padding: 1px 5px; border-radius: 3px; }
+.params.engines td:last-child { color: var(--amber); word-break: break-all; }
 #runSample { margin-top: 4px; }
 .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px 32px; margin-top: 30px; }
-.glossary h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; color: var(--lime); margin: 0 0 6px; }
+.glossary h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; color: var(--amber); margin: 0 0 6px; }
 .glossary p { margin: 0; font-size: 15px; opacity: 0.9; }
 
 /* genome */
@@ -193,8 +201,8 @@ section.about { padding-block: 40px 0; }
 .chrom canvas.gn { height: 8px; }
 .gkey { display: grid; gap: 6px; padding: 0 14px 16px; color: var(--dim); font-size: 10px; line-height: 1.6; }
 .gkey .sw { display: inline-block; width: 22px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: middle; }
-.gkey .sw.gc { background: linear-gradient(90deg, #3333ea, #8a22b8, #be50e8, #c9ff2e); }
-.gkey .sw.gn { background: linear-gradient(90deg, #05071a, #3333ea, #c9ff2e); }
+.gkey .sw.gc { background: linear-gradient(90deg, #5a260c, #c4621f, #f2a93b, #fae8c4); }
+.gkey .sw.gn { background: linear-gradient(90deg, #0d0703, #8a3f12, #f2a93b); }
 .chrom .len { text-align: right; font-variant-numeric: tabular-nums; }
 .scale { padding: 0 110px 26px 80px; font-family: var(--mono); font-size: 10px; color: var(--dim); }
 #scaleTicks { position: relative; height: 1px; }
@@ -203,9 +211,9 @@ section.about { padding-block: 40px 0; }
 .drop input[type=file] { font-family: var(--mono); font-size: 11px; color: var(--paper); max-width: 100%; }
 #gcOut { display: grid; gap: 12px; margin-top: 14px; font-family: var(--mono); font-size: 11px; }
 #gcOut canvas { width: 100%; height: 28px; display: block; image-rendering: pixelated; border-radius: 4px; }
-.code { background: #05071a; border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.7; overflow-x: auto; white-space: pre; position: relative; }
+.code { background: #0d0703; border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.7; overflow-x: auto; white-space: pre; position: relative; }
 .copy { position: absolute; right: 8px; top: 8px; font-family: var(--mono); font-size: 10px; background: transparent; color: var(--paper); border: 1px solid var(--rule); border-radius: 3px; padding: 4px 8px; cursor: pointer; }
-.copy:hover { border-color: var(--lime); color: var(--lime); }
+.copy:hover { border-color: var(--amber); color: var(--amber); }
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; border-top: 1px solid var(--rule); margin-top: 40px; }
 .facts div { padding: 18px 16px 18px 0; border-bottom: 1px solid var(--rule); }
 .facts .n { font-size: 44px; letter-spacing: -0.04em; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
@@ -216,21 +224,21 @@ section.about { padding-block: 40px 0; }
 .notes .wrap { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 60px; }
 .toc { position: sticky; top: 90px; align-self: start; font-family: var(--mono); font-size: 11px; line-height: 2; }
 .toc a { display: block; text-decoration: none; color: var(--dim); }
-.toc a:hover { color: var(--lime); }
+.toc a:hover { color: var(--amber); }
 .prose { max-width: 66ch; }
 .prose h2 { font-size: clamp(34px, 4.6vw, 58px); max-width: none; margin-top: 70px; }
 .prose h2:first-child { margin-top: 0; }
 .prose p { margin: 0 0 1.2em; }
 .prose ul { padding-left: 1.2em; margin: 0 0 1.4em; }
 .prose li { margin-bottom: 0.5em; }
-.prose a { color: var(--lime); text-underline-offset: 3px; }
-.prose code { font-family: var(--mono); font-size: 0.82em; background: #101436; padding: 2px 6px; border-radius: 3px; }
-.eq { font-family: var(--mono); font-size: 13px; background: #05071a; border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; margin: 0 0 1.4em; overflow-x: auto; white-space: pre; line-height: 1.8; }
-.pull { border-left: 3px solid var(--lime); padding: 4px 0 4px 18px; font-size: 22px; line-height: 1.35; letter-spacing: -0.015em; margin: 1.6em 0; }
+.prose a { color: var(--amber); text-underline-offset: 3px; }
+.prose code { font-family: var(--mono); font-size: 0.82em; background: #2a180b; padding: 2px 6px; border-radius: 3px; }
+.eq { font-family: var(--mono); font-size: 13px; background: #0d0703; border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; margin: 0 0 1.4em; overflow-x: auto; white-space: pre; line-height: 1.8; }
+.pull { border-left: 3px solid var(--amber); padding: 4px 0 4px 18px; font-size: 22px; line-height: 1.35; letter-spacing: -0.015em; margin: 1.6em 0; }
 .sources { font-size: 14px; }
 .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border: 1px solid var(--rule); border-radius: 8px; margin: 0 0 1.4em; overflow: hidden; }
 .results div { padding: 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0 -1px -1px 0; }
-.results .n { font-size: 40px; letter-spacing: -0.04em; font-weight: 500; line-height: 1; color: var(--lime); font-variant-numeric: tabular-nums; }
+.results .n { font-size: 40px; letter-spacing: -0.04em; font-weight: 500; line-height: 1; color: var(--amber); font-variant-numeric: tabular-nums; }
 .results .l { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 8px; line-height: 1.6; }
 .sources li { word-break: break-word; }
 @media (max-width: 900px) { .notes .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; } .toc { display: none; } }
@@ -246,11 +254,12 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
 <canvas id="field" aria-hidden="true"></canvas>
 <canvas id="fieldLabels" aria-hidden="true"></canvas>
 
+<div id="boot" aria-hidden="true"><div><img src="__LOGO__" alt=""><pre id="bootText"></pre></div></div>
 <div class="page">
   <div class="cabar mono" role="note">CA: <button type="button" class="ca" id="caCopy" data-ca="HKRvkxVUTT3ySfebkod9j5KL2M57KYzzmVBy4C6Vpump" aria-label="Copy the contract address">HKRvkxVUTT3ySfebkod9j5KL2M57KYzzmVBy4C6Vpump</button><span id="caMsg" aria-live="polite"></span></div>
   <header class="nav">
     <div class="wrap">
-      <a class="logo" href="#top"><img src="__LOGO__" alt="" width="30" height="30">WERM</a>
+      <a class="logo" href="#top"><img src="__LOGO__" alt="" width="30" height="30">NEMA</a>
       <nav aria-label="Sections">
         <a href="#brain">Brain</a>
         <a href="#body">Body</a>
@@ -259,7 +268,7 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
         <a href="#notes">Notes</a>
       </nav>
       <div class="navend">
-        <a class="xlink" href="__X_URL__" aria-label="WERM on X" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a class="xlink" href="__X_URL__" aria-label="NEMA on X" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
         <a class="btn" data-gh href="__GITHUB_URL__">GitHub</a>
       </div>
     </div>
@@ -267,17 +276,15 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
 
   <section class="hero">
     <div class="wrap">
-      <h1>Wired from the <span class="striped">worm</span></h1>
-      <div class="acronym" role="group" aria-label="WERM stands for Wiring-Encoded Recurrent Modulator">
-        <div><b>W</b>iring</div><div><b>E</b>ncoded</div><div><b>R</b>ecurrent</div><div><b>M</b>odulator</div>
-      </div>
-      <p class="mono acro-sub">That is what WERM stands for. The wiring comes from the real worm. It is encoded as a network. It is recurrent, so each moment leans on the last one. And it only modulates: all it does is nudge the dials on a language model.</p>
-      <p class="lede">A 302 neuron brain, copied from the real wiring diagram of C. elegans (a see-through worm about the size of a pinhead, and the first animal to have its entire brain mapped), running in this tab. It is small enough to read and strange enough to steer a language model.</p>
+      <p class="mono kicker">living wiring system &nbsp;/&nbsp; <i>C. elegans</i></p>
+      <h1>Life wired it.<br>We <span class="striped">switched it on.</span></h1>
+      <p class="manifesto">Long before silicon, a millimetre of nematode learned to sense, flinch and choose. NEMA takes its complete wiring diagram, every neuron and every connection, and switches it on inside your machine. Touch it and it moves. Connect it to an AI and it steers. Living wiring, meeting machine thought.</p>
+      <p class="lede">A 302 neuron brain, copied from the real wiring diagram of C. elegans (a see-through worm about the size of a pinhead, and the first animal to have its entire brain mapped), running in this tab.</p>
       <div class="cta">
         <a class="btn" href="#brain">Poke the brain</a>
         <a class="btn ghost" href="#notes">Read the notes</a>
       </div>
-      <p class="mono hint">Scroll down. The five worms in the background each run their own copy of this brain. They hunt for food, bump into each other and back away. Scrolling down pokes their tails, scrolling up pokes their heads.</p>
+      <p class="mono hint">Move your cursor onto the worms in the background. Each one runs its own copy of this brain, and it flinches when you touch it. Scrolling down pokes their tails, scrolling up pokes their heads.</p>
       <aside class="cards" aria-label="Live readout">
         <div class="tag"><span class="dot"></span>STATE <b id="heroState">resting</b><br><span id="heroInput" style="opacity:.7">input: none</span></div>
         <div class="stat">
@@ -290,7 +297,7 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
     </div>
   </section>
 
-  <section class="band about" id="about" aria-label="Four ideas behind WERM">
+  <section class="band about" id="about" aria-label="Four ideas behind NEMA">
     <div class="wrap">
       <div class="ideas">
         <div><h4>Connectome</h4><p>The full list of which neurons connect to which. This one was traced from electron microscope images of real worms and published by Steven Cook and colleagues in 2019.</p></div>
@@ -310,9 +317,9 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
           <div class="bar"><span>CONNECTOME / HERMAPHRODITE</span><span id="globeNote">drag to rotate</span></div>
           <div id="globeWrap"><canvas id="globe" aria-label="Rotating globe of 302 neurons"></canvas></div>
           <div class="legend">
-            <span><i style="background:var(--lime)"></i>sensory</span>
-            <span><i style="background:#c65cf0"></i>interneuron</span>
-            <span><i style="background:#6f6cff"></i>motor</span>
+            <span><i style="background:#ffcf6e"></i>sensory</span>
+            <span><i style="background:#e0742a"></i>interneuron</span>
+            <span><i style="background:#b8401c"></i>motor</span>
             <span><i style="background:var(--paper)"></i>other</span>
           </div>
           <div class="pick" id="pick">Nothing picked yet. Click a neuron.</div>
@@ -348,7 +355,7 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
           </table>
         </div>
         <div>
-          <p class="mono" style="margin:0;opacity:.8;line-height:1.7">The same code runs on your own computer, where you can connect it to Ollama or any other local engine and send it messages. The steps are in <a href="#run" style="color:var(--lime)">run it on your computer</a> below.</p>
+          <p class="mono" style="margin:0;opacity:.8;line-height:1.7">The same code runs on your own computer, where you can connect it to Ollama or any other local engine and send it messages. The steps are in <a href="#run" style="color:var(--amber)">run it on your computer</a> below.</p>
         </div>
       </div>
     </div>
@@ -404,7 +411,7 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
           <div class="chroms" id="chroms"></div>
           <div class="scale"><div id="scaleTicks"></div></div>
           <div class="gkey mono">
-            <span><i class="sw gc"></i>top strip: GC content. Blue is the most A and T rich, lime the most G and C rich (<span id="gcRange"></span>)</span>
+            <span><i class="sw gc"></i>top strip: GC content. Dark rust is the most A and T rich, cream the most G and C rich (<span id="gcRange"></span>)</span>
             <span><i class="sw gn"></i>bottom strip: protein coding genes per window, brighter means more (<span id="geneRange"></span>)</span>
           </div>
           <div class="drop">
@@ -434,7 +441,7 @@ node scripts/gene_windows.mjs data/genome/annotation.gff.gz</div>
         <div class="frame step">
           <div class="bar"><span>1 / GET THE CODE</span><span>about a minute</span></div>
           <div class="code" id="runGet"><button class="copy" data-copy="runGet">copy</button>git clone GH_URL
-cd werm
+cd nema
 npm test</div>
           <p class="mono">No packages to install. The tests check the wiring, the brain and the steering in a few seconds.</p>
         </div>
@@ -470,7 +477,7 @@ node src/cli.mjs connect --model llama3.2</div>
         </div>
       </div>
       <h3>How the worm sets the model</h3>
-      <p class="sub">Each message you pass through WERM pokes a group of sensory neurons first. A question bumps the nose, an angry word is something nasty, a thank you smells like food, a long paste hits the head, and anything else nudges the tail. The brain runs for a moment, and its state becomes the model's temperature, top_p, repeat penalty and length limit, plus a one line tone. The model still writes every word. Whether this changes its answers in a way you can measure has not been tested yet. The test is in the repo as <code>scripts/steer-eval.mjs</code>.</p>
+      <p class="sub">Each message you pass through NEMA pokes a group of sensory neurons first. A question bumps the nose, an angry word is something nasty, a thank you smells like food, a long paste hits the head, and anything else nudges the tail. The brain runs for a moment, and its state becomes the model's temperature, top_p, repeat penalty and length limit, plus a one line tone. The model still writes every word. Whether this changes its answers in a way you can measure has not been tested yet. The test is in the repo as <code>scripts/steer-eval.mjs</code>.</p>
     </div>
   </section>
 
@@ -526,7 +533,7 @@ node src/cli.mjs connect --model llama3.2</div>
 
         <h2 id="n-openworm">OpenWorm</h2>
         <p>OpenWorm is an open science project that has been working since 2011 to simulate the whole animal. It is organised as a set of parts. c302 builds neuron models of the whole nervous system in NeuroML at several levels of detail, from simple integrate and fire cells up to Hodgkin Huxley style conductance models. Sibernetic simulates the physical body and the fluid around it. Geppetto is a browser based visualisation and simulation engine. The ConnectomeToolbox collects published wiring datasets in one Python package, and that is where the wiring data used here came from.</p>
-        <p>WERM is not a part of that effort and does not compete with it. If you want a faithful biophysical simulation, use c302. If you want something small that runs in a browser tab and can be taken apart in an afternoon, that is the gap this project fills.</p>
+        <p>NEMA is not a part of that effort and does not compete with it. If you want a faithful biophysical simulation, use c302. If you want something small that runs in a browser tab and can be taken apart in an afternoon, that is the gap this project fills.</p>
 
         <h2 id="n-model">Our model</h2>
         <p>Each of the 302 neurons has one number, its activation level x. The update rule for every neuron is:</p>
@@ -605,7 +612,7 @@ const GH = "__GITHUB_URL__";
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-const PAL = { blue: [51, 51, 234], violet: [138, 34, 184], orchid: [190, 80, 232], lime: [201, 255, 46] };
+const PAL = { deep: [110, 44, 12], mid: [196, 98, 31], warm: [242, 169, 59], hot: [250, 232, 196] };   // agar amber, darkest to brightest
 
 document.querySelectorAll("[data-gh]").forEach((a) => (a.href = GH));
 document.querySelectorAll(".code").forEach((el) => {
@@ -765,7 +772,7 @@ class PixelStage {
         const b = BAYER[(y & 3) * 4 + (x & 3)] / 16 - 0.5;
         const q = v + b * 0.32;
         let c = null;
-        if (q > 0.86) c = PAL.lime; else if (q > 0.64) c = PAL.orchid; else if (q > 0.42) c = PAL.violet; else if (q > 0.22) c = PAL.blue;
+        if (q > 0.86) c = PAL.hot; else if (q > 0.64) c = PAL.warm; else if (q > 0.42) c = PAL.mid; else if (q > 0.22) c = PAL.deep;
         if (c) { out[i] = c[0]; out[i + 1] = c[1]; out[i + 2] = c[2]; out[i + 3] = 255; } else { out[i + 3] = 0; }
       }
     }
@@ -800,6 +807,8 @@ function seedWorms() {
 }
 seedWorms();
 function poke(a, key, dur) { a.t[key] = Math.max(a.t[key] || 0, dur); }
+const pointer = { x: -1e9, y: -1e9, t: -1e9 };
+window.addEventListener("pointermove", (e) => { pointer.x = e.clientX / field.cell; pointer.y = e.clientY / field.cell; pointer.t = performance.now(); }, { passive: true });
 function updateAgents(dt, kick, sv) {
   const W = field.W, H = field.H, smellR = 120, eatR = 6, contactR = 5.5;
   for (let i = 0; i < agents.length; i++) {
@@ -820,6 +829,8 @@ function updateAgents(dt, kick, sv) {
       }
     }
     if (kick > 0) poke(a, "touch-tail", 0.45); else if (kick < 0) poke(a, "touch-head", 0.45);
+    if (performance.now() - pointer.t < 1200 && Math.hypot(pointer.x - hx, pointer.y - hy) < 22) { poke(a, "nose-touch", 0.6); a.touchedByYou = 0.9; }
+    a.touchedByYou = Math.max(0, (a.touchedByYou || 0) - dt);
     let sig = "";
     for (const key of KEYS) if ((a.t[key] || 0) > 0) { sig += key + "|"; a.t[key] -= dt; }
     if (sig !== a.sig) { a.sig = sig; a.b.clearInput(); sig.split("|").filter(Boolean).forEach((k) => a.b.stimulate(k, true)); }
@@ -837,6 +848,7 @@ function updateAgents(dt, kick, sv) {
     const speed = (reversing ? mdrive * 22 : 9 + mdrive * 16) * (smelling && nd < 30 ? 0.55 : 1) + (reversing ? 0 : sv * 6);
     w.update(dt, reduce ? 0 : omega, 0.36 + act * 0.4, reduce ? 0 : speed, W, H, aim);
     a.label = a.eatT > 0 ? "eating"
+      : a.touchedByYou > 0 ? (mdrive < 0 ? "you touched it, backing up" : "you touched it")
       : (a.t["nose-touch"] || 0) > 0 ? (mdrive < 0 ? "bumped, backing up" : "bumped something")
       : (a.t["touch-tail"] || 0) > 0 ? "poked from behind"
       : (a.t["touch-head"] || 0) > 0 ? "poked on the head"
@@ -856,8 +868,8 @@ function drawLabels() {
     if (x < -20 || y < -20 || x > lcv.width + 20 || y > lcv.height + 20) continue;
     const text = a.name + " " + a.label + (a.eaten ? "  (" + a.eaten + " eaten)" : "");
     const tw = lctx.measureText(text).width;
-    lctx.fillStyle = "rgba(3,5,15,0.78)"; lctx.fillRect(x + 12, y - 18, tw + 12, 18);
-    lctx.fillStyle = a.eatT > 0 ? "#c9ff2e" : "#ece8e1"; lctx.fillText(text, x + 18, y - 9);
+    lctx.fillStyle = "rgba(18,10,5,0.78)"; lctx.fillRect(x + 12, y - 18, tw + 12, 18);
+    lctx.fillStyle = a.eatT > 0 ? "#f2a93b" : "#f6e7c8"; lctx.fillText(text, x + 18, y - 9);
   }
 }
 
@@ -880,7 +892,7 @@ const pos = new Array(neurons.length);
 }
 const nIndex = new Map(neurons.map((n, i) => [n.id, i]));
 const arcs = CONNECTOME.edges.filter((e) => e.k === "chem").map((e) => [nIndex.get(e.s), nIndex.get(e.t), e.w]);
-const COL = { sensory: "#c9ff2e", inter: "#c65cf0", motor: "#6f6cff", other: "#ece8e1" };
+const COL = { sensory: "#ffcf6e", inter: "#e0742a", motor: "#b8401c", other: "#f6e7c8" };
 let rotY = 0.6, rotX = -0.25, spin = reduce ? 0 : 0.12, dragging = false, lastX = 0, lastY = 0, moved = 0;
 let gW = 0, gH = 0, proj = [];
 function sizeGlobe() {
@@ -900,7 +912,7 @@ function drawGlobe() {
   }
   // sphere rim
   gctx.strokeStyle = "rgba(236,232,225,0.35)"; gctx.lineWidth = 1; gctx.beginPath(); gctx.arc(cx, cy, R, 0, 6.283); gctx.stroke();
-  gctx.strokeStyle = "rgba(51,51,234,0.5)";
+  gctx.strokeStyle = "rgba(196,98,31,0.5)";
   for (const lat of [-0.5, 0, 0.5]) {
     gctx.beginPath(); let started = false;
     for (let a = 0; a <= 64; a++) {
@@ -926,7 +938,7 @@ function drawGlobe() {
     const mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2;
     const dx = mx - cx, dy = my - cy, d = Math.hypot(dx, dy) || 1;
     const lift = 0.35 * Math.hypot(A[0] - B[0], A[1] - B[1]);
-    gctx.strokeStyle = "rgba(201,255,46," + clamp(a * 0.9, 0.12, 0.85).toFixed(2) + ")";
+    gctx.strokeStyle = "rgba(255,207,110," + clamp(a * 0.9, 0.12, 0.85).toFixed(2) + ")";
     gctx.beginPath(); gctx.moveTo(A[0], A[1]); gctx.quadraticCurveTo(mx + (dx / d) * lift, my + (dy / d) * lift, B[0], B[1]); gctx.stroke();
     drawn++;
   }
@@ -938,8 +950,8 @@ function drawGlobe() {
     gctx.globalAlpha = front ? 1 : 0.35;
     gctx.fillStyle = COL[neurons[i].class];
     gctx.beginPath(); gctx.arc(p[0], p[1], r, 0, 6.283); gctx.fill();
-    if (a > 0.35) { gctx.strokeStyle = "#ece8e1"; gctx.lineWidth = 1; gctx.beginPath(); gctx.arc(p[0], p[1], r + 2.5, 0, 6.283); gctx.stroke(); }
-    if (state.picked === i) { gctx.strokeStyle = "#c9ff2e"; gctx.lineWidth = 1.6; gctx.beginPath(); gctx.arc(p[0], p[1], r + 6, 0, 6.283); gctx.stroke(); }
+    if (a > 0.35) { gctx.strokeStyle = "#f6e7c8"; gctx.lineWidth = 1; gctx.beginPath(); gctx.arc(p[0], p[1], r + 2.5, 0, 6.283); gctx.stroke(); }
+    if (state.picked === i) { gctx.strokeStyle = "#f2a93b"; gctx.lineWidth = 1.6; gctx.beginPath(); gctx.arc(p[0], p[1], r + 6, 0, 6.283); gctx.stroke(); }
   }
   gctx.globalAlpha = 1;
 }
@@ -953,7 +965,7 @@ function describePick() {
   const n = neurons[state.picked];
   let ins = 0, outs = 0;
   for (const e of CONNECTOME.edges) { if (e.t === n.id) ins++; if (e.s === n.id) outs++; }
-  $("pick").innerHTML = "<b style='color:var(--lime)'>" + n.id + "</b> &nbsp;" + n.class + (n.type ? " / " + n.type.toLowerCase() : "") + "<br>" + ins + " incoming and " + outs + " outgoing connections. " + (state.pickedOn ? "Firing now. Click it again to stop." : "Resting.");
+  $("pick").innerHTML = "<b style='color:var(--amber)'>" + n.id + "</b> &nbsp;" + n.class + (n.type ? " / " + n.type.toLowerCase() : "") + "<br>" + ins + " incoming and " + outs + " outgoing connections. " + (state.pickedOn ? "Firing now. Click it again to stop." : "Resting.");
 }
 globe.addEventListener("pointerdown", (e) => { dragging = true; moved = 0; lastX = e.clientX; lastY = e.clientY; globe.setPointerCapture(e.pointerId); globe.style.cursor = "grabbing"; });
 globe.addEventListener("pointermove", (e) => {
@@ -979,7 +991,7 @@ globe.addEventListener("pointerup", (e) => {
   const gMax = Math.max(...allGenes);
   $("gcRange").textContent = gcLo.toFixed(1) + "% to " + gcHi.toFixed(1) + "% GC";
   $("geneRange").textContent = "0 to " + gMax + " genes";
-  const tone = (v) => (v > 0.78 ? PAL.lime : v > 0.55 ? PAL.orchid : v > 0.3 ? PAL.violet : PAL.blue);
+  const tone = (v) => (v > 0.78 ? PAL.hot : v > 0.55 ? PAL.warm : v > 0.3 ? PAL.mid : PAL.deep);
   const strip = (vals, cls, colour) => {
     const cv = document.createElement("canvas"); cv.className = cls; cv.width = vals.length; cv.height = 1;
     const cx = cv.getContext("2d"), im = cx.createImageData(vals.length, 1);
@@ -994,7 +1006,7 @@ globe.addEventListener("pointerup", (e) => {
     const box = document.createElement("div"); box.className = "strips"; box.style.width = (c.length / max * 100).toFixed(2) + "%";
     box.title = "chromosome " + c.name + ", " + c.length.toLocaleString() + " bases, " + genes.reduce((a, b) => a + b, 0).toLocaleString() + " protein coding genes";
     box.appendChild(strip(c.gc, "gc", (v) => tone((v - gcLo) / (gcHi - gcLo))));
-    box.appendChild(strip(genes, "gn", (v) => { const t = v / gMax; return t > 0.7 ? PAL.lime : t > 0.45 ? PAL.blue : t > 0.2 ? [26, 26, 120] : [10, 12, 40]; }));
+    box.appendChild(strip(genes, "gn", (v) => { const t = v / gMax; return t > 0.7 ? PAL.hot : t > 0.45 ? PAL.deep : t > 0.2 ? [70, 30, 10] : [30, 16, 8]; }));
     const wrapBox = document.createElement("div"); wrapBox.appendChild(box);
     const len = document.createElement("span"); len.className = "len"; len.textContent = (c.length / 1e6).toFixed(2) + " Mb";
     row.append(lab, wrapBox, len); host.appendChild(row);
@@ -1037,10 +1049,10 @@ $("fasta").addEventListener("change", async (ev) => {
     wrap.innerHTML = "<div style='display:flex;justify-content:space-between;gap:10px'><span>" + s.name + "</span><span>" + s.len.toLocaleString() + " bases, GC " + (gcAll * 100).toFixed(1) + "%</span></div>";
     const cv = document.createElement("canvas"); cv.width = Math.max(1, s.gc.length); cv.height = 1;
     const cx = cv.getContext("2d"); const im = cx.createImageData(cv.width, 1);
-    s.gc.forEach((g, i) => { const v = clamp((g - 0.28) / 0.14, 0, 1); const c = v > 0.75 ? PAL.lime : v > 0.5 ? PAL.orchid : v > 0.25 ? PAL.violet : PAL.blue; im.data.set([c[0], c[1], c[2], 255], i * 4); });
+    s.gc.forEach((g, i) => { const v = clamp((g - 0.28) / 0.14, 0, 1); const c = v > 0.75 ? PAL.hot : v > 0.5 ? PAL.warm : v > 0.25 ? PAL.mid : PAL.deep; im.data.set([c[0], c[1], c[2], 255], i * 4); });
     cx.putImageData(im, 0, 0); wrap.appendChild(cv); out.appendChild(wrap);
   }
-  const note = document.createElement("div"); note.style.opacity = ".65"; note.textContent = "Each pixel is a 100 kb window. Lime is the most GC rich, blue the least."; out.appendChild(note);
+  const note = document.createElement("div"); note.style.opacity = ".65"; note.textContent = "Each pixel is a 100 kb window. Cream is the most GC rich, dark rust the least."; out.appendChild(note);
 });
 
 /* ---------- null model results, from docs/results/null-models.json ---------- */
@@ -1110,6 +1122,25 @@ function loop(now) {
 }
 function onResize() { field.resize(); bodyStage.resize(); seedWorms(); sizeGlobe(); sizeLabels(); }
 let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(onResize, 150); });
+/* boot sequence: the real counts, typed out, then the page */
+{
+  const boot = $("boot"), chem = CONNECTOME.edges.filter((e) => e.k === "chem").length, gap = CONNECTOME.edges.length - chem;
+  const lines = [["hd", "NEMA  //  living wiring system"], ["", ""], ["", "> loading connectome ............ " + CONNECTOME.neurons.length + " neurons"],
+    ["", "> wiring chemical synapses ...... " + chem.toLocaleString("en-US")], ["", "> wiring gap junctions .......... " + gap.toLocaleString("en-US")],
+    ["", "> settling to rest .............. stable"], ["ok", "> nervous system online"]];
+  const html = (n) => { let left = n, out = ""; for (const [cls, t] of lines) { const k = Math.max(0, Math.min(t.length, left)); left -= t.length; out += `<span class="${cls}">${t.slice(0, k)}</span>\n`; } return out; };
+  const total = lines.reduce((a, l) => a + l[1].length, 0), t0 = performance.now(), dur = 1400, hold = 450, fade = 380;
+  const done = () => { boot.remove(); };
+  if (reduce) done();
+  else {
+    const tick = (now) => { const t = now - t0;
+      $("bootText").innerHTML = html(Math.floor(Math.min(1, t / dur) * total));
+      if (t > dur + hold) boot.style.opacity = String(Math.max(0, 1 - (t - dur - hold) / fade));
+      if (t > dur + hold + fade) return done();
+      requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+}
 sizeGlobe(); sizeLabels(); refreshInputs(); state.autoTimer = 1.2;
 requestAnimationFrame(loop);
 })();
