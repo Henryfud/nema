@@ -14,9 +14,9 @@ These were choices, not oversights.
 | Write the steering evaluation, do not run it | `scripts/steer-eval.mjs` exists with tests and a dry run. No language model was installed or run. The site and README say the steering effect is unmeasured |
 | Keep the site's look, including worms crawling over the text | Handoff issue 9 closed as "keep" |
 | No chat on the website | The site explains how to connect the worm to a local engine yourself. It shows no conversation |
-| Repository `Henryfud/werm`, private first | |
-| Host on Netlify from the GitHub repo, domain werm.si | `netlify.toml` added |
-| X account @WERM_si, logo from `werm-profile.png` | Logo is the favicon, the header mark and the link preview image |
+| Repository `Henryfud/nema`, private first | |
+| Host on Netlify from the GitHub repo, on the owner's own domain | `netlify.toml` added |
+| An X account and a logo | Logo is the favicon, the header mark and the link preview image |
 | Show "CA: coming soon" at the top of the site | A thin bar above the nav. The earlier "no coin, no token" rule in `CLAUDE.md` and `HANDOFF.md` is marked as superseded. The README does not mention it |
 
 ## 1. Run everything first

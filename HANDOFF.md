@@ -1,8 +1,6 @@
-> **Renamed, 2026-10-21.** WERM is now **NEMA** (short for nematode). This handoff is kept as written. The repository is github.com/Henryfud/nema.
+# NEMA handoff for Claude Code
 
-# WERM handoff for Claude Code
-
-**WERM = Wiring-Encoded Recurrent Modulator.**
+**NEMA, short for nematode.**
 A 302 neuron network built on the measured wiring diagram of *Caenorhabditis elegans*, a long scroll website to present it, and a small layer that lets the network's state steer the sampling settings of a local language model.
 
 This file is written for you, Claude Code. Read all of it before you touch anything.
@@ -13,7 +11,7 @@ This file is written for you, Claude Code. Read all of it before you touch anyth
 
 You are inheriting a finished first pass. Everything in this zip was built in one long session in a sandbox that could not reach NCBI and could not push to GitHub. Your job has four parts, in this order.
 
-1. **Go over the GitHub material.** Everything under `repo/` is meant to be pushed to GitHub as one repository named `werm`. Before you add anything, audit all of it: the code, the data, the tests, the docs, the site, and every number and citation. Section 4 tells you exactly how. Do not skip this, and do not start new features first. The code was tuned by hand under time pressure and several claims were written from memory.
+1. **Go over the GitHub material.** Everything under `repo/` is meant to be pushed to GitHub as one repository named `nema`. Before you add anything, audit all of it: the code, the data, the tests, the docs, the site, and every number and citation. Section 4 tells you exactly how. Do not skip this, and do not start new features first. The code was tuned by hand under time pressure and several claims were written from memory.
 2. **Close the verification gaps.** Section 6 lists every known issue. Fix the wording or the code. Where a fact cannot be verified, remove it or mark it clearly.
 3. **Build the missing pieces.** Section 7 is the roadmap with acceptance criteria. The most valuable items are the genome fetch, the null model experiment (does the real wiring beat shuffled wiring) and the steering evaluation.
 4. **Publish.** Section 13. Ask the user before you create a public repository or push anything.
@@ -41,7 +39,7 @@ The research pack is in `repo/docs/research/`. Seven files, about ten thousand w
 - It should use the genome and the biology of the worm, in real depth, with a very long write up.
 - The visual direction is the reference image in `reference/`: navy ground, purple and magenta dither, blue, lime accent, mono and grotesque type. Imagine generative worms wiggling around the screen as you scroll, with scroll animations throughout, plus a globe with arcs like the second reference image.
 - Use real science. Say "theory" occasionally where the claim really is a theory, but do not overuse it.
-- The name is **WERM**. The acronym is Wiring-Encoded Recurrent Modulator.
+- The name is **NEMA**, short for nematode.
 - There is **no coin and no token** in this project. It is a conceptual build. (Superseded on 2026-10-05: the owner decided to show "CA: coming soon" at the top of the site. See `CLAUDE.md`.)
 - The hero line explains C. elegans in a playful, simple way for ordinary readers.
 
@@ -215,7 +213,7 @@ Severity: **A** affects correctness of a public claim. **B** affects quality. **
 | 9 | B | The site's hero worm can cross the lede text. | `site/template.html` |
 | 10 | B | `food-smell` produces a mild backward drive. No literature claim is made, but think about whether it is surprising. | research 03 |
 | 11 | B | The notes say "about 7,000" synapses and the hero shows 4,814 "connections". Keep the two clearly separate in wording. | `site/template.html` |
-| 12 | C | The site title and repo name use `werm`. Confirm the user's GitHub account and the final repo URL. The default in the build script is `https://github.com/Henryfud/werm` and was set from earlier context. It may be wrong. | `scripts/build_site.mjs` |
+| 12 | C | The site title and repo name use `nema`. Confirm the user's GitHub account and the final repo URL. The default in the build script is `https://github.com/Henryfud/nema` and was set from earlier context. It may be wrong. | `scripts/build_site.mjs` |
 
 ---
 
@@ -300,7 +298,7 @@ The site is a single dark look by design. It sets all colours explicitly and doe
 
 ### 8.2 Structure
 
-1. **Hero.** Large headline "Wired from the worm" with the word "worm" in a horizontal stripe fill. Directly under it the acronym at display size, Wiring Encoded Recurrent Modulator, with lime initials W, E, R, M, then a short plain explanation of each word. Lede with the playful C. elegans line. Two buttons. Floating readout cards (state, neurons wired, active now, connections). Terrain with lime speckled edge at the bottom of the hero scrolls up as you scroll.
+1. **Hero.** Large headline "Wired from the worm" with the word "worm" in a horizontal stripe fill. Lede with the playful C. elegans line. Two buttons. Floating readout cards (state, neurons wired, active now, connections). Terrain with lime speckled edge at the bottom of the hero scrolls up as you scroll.
 2. **Brain.** Globe of 302 neurons, sensory on top, motor on the bottom. Stimulus buttons, live meters for forward command, backward command and arousal. Below it the steering layer with live settings and the command block.
 3. **Body.** Draw on scroll schematic of the worm, with a glossary of six parts. A live body canvas driven by the network.
 4. **Genome.** Six chromosome bars to scale, local FASTA reader with GC map, fact grid.
@@ -394,27 +392,27 @@ Keep the claims at exactly this level on the site until there are measurements:
 The sandbox had no authenticated GitHub access. You will need the user's help.
 
 1. Ask the user for their GitHub username and whether the repository should be public or private. Offer: public, private, or private now and public later. Recommend private first.
-2. Confirm the repo name. The working name is `werm`.
+2. Confirm the repo name. The working name is `nema`.
 3. Initialise and commit.
 
    ```bash
    cd repo
    git init -b main
    git add .
-   git commit -m "WERM: first public version"
+   git commit -m "NEMA: first public version"
    ```
 
 4. Create the remote and push, only after the user says yes.
 
    ```bash
    gh auth status
-   gh repo create <user>/werm --private --source . --push
+   gh repo create <user>/nema --private --source . --push
    ```
 
 5. Rebuild the site with the real URL so the buttons and clone commands are right.
 
    ```bash
-   GITHUB_URL=https://github.com/<user>/werm npm run build:site
+   GITHUB_URL=https://github.com/<user>/nema npm run build:site
    ```
 
 6. Add repository topics and a short description. Suggested description: "A 302 neuron network on the real C. elegans wiring diagram, with a steering layer for local language models."
@@ -450,7 +448,7 @@ Commit message style: short imperative subject, one blank line, a few lines of d
 | Steering at the sampling layer | Works with any local model through Ollama. Hidden state injection needs open weights and is a later experiment. |
 | Genome shown as lengths plus a local file reader | NCBI was unreachable during the build. Nothing fake on the page. |
 | Single dark look, pixel dither field | Matches the reference the user liked. |
-| Name WERM, Wiring-Encoded Recurrent Modulator | The user asked for an acronym that sounds intelligent. Each word is accurate: the model is encoded from the wiring, it is a recurrent network, and it modulates a language model. |
+| Name NEMA | Short for nematode, the animal the wiring comes from. |
 | Private repo first in the publishing steps | Cheaper to open up than to take back. |
 
 ---

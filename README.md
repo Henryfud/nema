@@ -6,8 +6,6 @@
 
 NEMA, short for nematode, is a 302 neuron model built on the real wiring diagram of *Caenorhabditis elegans*, with a small steering layer that lets its state nudge a local language model. It runs in a browser tab, in Node, or connected to a language model on your own computer through Ollama or any OpenAI style local server.
 
-[werm.si](https://werm.si) · [@WERM_si on X](https://x.com/WERM_si)
-
 [![ci](https://github.com/Henryfud/nema/actions/workflows/ci.yml/badge.svg)](https://github.com/Henryfud/nema/actions/workflows/ci.yml)
 
 The site in `site/` is a long scroll page with a generative pixel worm field, a live connectome globe, the genome drawn to scale from the real sequence, and long form notes. The code in `src/` is the same code the site runs.
@@ -160,7 +158,7 @@ unzip -q dl/cect-*.whl -d dl/x
 npm run build:site
 ```
 
-Writes `site/index.html`. Set `GITHUB_URL` or `SITE_URL` to change the links on the page. Netlify builds the same way (`netlify.toml`).
+Writes `site/index.html`. Set `GITHUB_URL` to change the repo link, and `SITE_URL` and `X_HANDLE` once there is a domain and an X account. Netlify builds the same way (`netlify.toml`).
 
 ### Checks
 

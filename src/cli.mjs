@@ -22,7 +22,7 @@ if (cmd === "sim") {
 } else if (cmd === "connect" || cmd === "chat") {   // "chat" is the older name for the same command
   // two engines: Ollama's own API (default), or any server with the OpenAI chat API (--base-url)
   const baseUrl = flag("base-url", null);
-  const apiKey = process.env.NEMA_API_KEY ?? process.env.WERM_API_KEY;   // the old name still works
+  const apiKey = process.env.NEMA_API_KEY;
   const model = flag("model", baseUrl ? undefined : "llama3.2");
   const host = flag("host", "http://localhost:11434");
   if (baseUrl && !model) { console.log("Give the model name your server uses, for example: --model qwen2.5-7b-instruct"); process.exit(1); }
