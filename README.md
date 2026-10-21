@@ -212,3 +212,5 @@ If you want a faithful biophysical simulation, use [OpenWorm's c302](https://git
 Wiring data: Cook et al. 2019, via the OpenWorm Connectome Toolbox. GABA map: Gendrel, Atlas and Hobert 2016. Genome: the *C. elegans* Sequencing Consortium, NCBI RefSeq and WormBase. The liquid time constant idea: Hasani, Lechner, Amini, Rus and Grosu. Everything about the worm: the *C. elegans* community. Every citation, with its checked status, is in [`docs/research/07-reading-list.md`](docs/research/07-reading-list.md).
 
 MIT licensed.
+
+- three.js r160 (MIT), in `site/vendor/three.module.min.js`, for the particle nebula behind the site.

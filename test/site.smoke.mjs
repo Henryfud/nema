@@ -3,7 +3,20 @@
 import { chromium } from "playwright";
 import assert from "node:assert/strict";
 
-const url = new URL("../site/index.html", import.meta.url).href;
+import http from "node:http";
+import fs from "node:fs";
+import path from "node:path";
+
+// serve site/ over http, the way Netlify does, so the separately loaded three.js file works
+const root = new URL("../site/", import.meta.url).pathname;
+const types = { ".html": "text/html", ".js": "text/javascript", ".png": "image/png" };
+const server = http.createServer((req, res) => {
+  const file = path.join(root, decodeURIComponent(req.url.split("?")[0]).replace(/\/$/, "/index.html"));
+  if (!file.startsWith(root) || !fs.existsSync(file)) { res.statusCode = 404; return res.end(); }
+  res.setHeader("content-type", types[path.extname(file)] || "application/octet-stream"); fs.createReadStream(file).pipe(res);
+});
+await new Promise((r) => server.listen(0, "127.0.0.1", r));
+const url = `http://127.0.0.1:${server.address().port}/index.html`;
 const browser = await chromium.launch();
 const errors = [];
 try {
@@ -25,6 +38,8 @@ try {
       await page.click("#cmpToggle");
       await page.waitForTimeout(800);
       assert.equal(await page.isVisible("#cmp"), true);
+      // the three.js nebula loaded and switched on
+      assert.equal(await page.evaluate(() => document.getElementById("nebula")?.classList.contains("on")), true, "nebula did not start");
       // the genome maps are drawn on load from the inlined data
       assert.equal(await page.locator("#chroms canvas").count(), 12);
     }
@@ -34,4 +49,5 @@ try {
   console.log("site smoke test passed at 360, 400, 768 and 1440 px");
 } finally {
   await browser.close();
+  server.close();
 }

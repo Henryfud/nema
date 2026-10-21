@@ -30,6 +30,8 @@ body {
 }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+#nebula { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.6s ease; }
+#nebula.on { opacity: 1; }
 #field {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
   image-rendering: pixelated; image-rendering: crisp-edges;
@@ -246,6 +248,7 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
 </style>
 
 <div id="top"></div>
+<canvas id="nebula" aria-hidden="true"></canvas>
 <canvas id="field" aria-hidden="true"></canvas>
 <canvas id="fieldLabels" aria-hidden="true"></canvas>
 
@@ -1453,3 +1456,120 @@ sizeGlobe(); sizeLabels(); refreshInputs(); state.autoTimer = 1.2;
 requestAnimationFrame(loop);
 })();
 </script>
+<script type="module">
+// The nebula: tens of thousands of particles drawn by three.js behind everything else.
+// They drift through 3D noise, ripple through the amber palette, push away from the cursor,
+// and morph from a cloud into a twisting double helix (a worm's body) as you scroll down the page.
+const canvas = document.getElementById("nebula");
+const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (canvas && !still) {
+  try {
+    const THREE = await import("./vendor/three.module.min.js");
+    const small = Math.min(innerWidth, innerHeight) < 700;
+    const COUNT = small ? 22000 : 60000;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(1.5, devicePixelRatio || 1));
+    const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+    camera.position.set(0, 0, 6.2);
+    // seeded positions: a soft shell of a sphere (the cloud) and a double helix (the worm), one target each
+    let seed = 302; const rnd = () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const a = new Float32Array(COUNT * 3), b = new Float32Array(COUNT * 3), r = new Float32Array(COUNT);
+    for (let i = 0; i < COUNT; i++) {
+      const u = rnd() * 2 - 1, th = rnd() * Math.PI * 2, rad = 0.25 + Math.pow(rnd(), 0.75) * 3.4, s = Math.sqrt(1 - u * u);
+      a.set([s * Math.cos(th) * rad, u * rad, s * Math.sin(th) * rad], i * 3);
+      const k = rnd(), strand = i % 2 ? Math.PI : 0, ang = k * Math.PI * 9 + strand, spread = 0.12 + rnd() * 0.22;
+      b.set([Math.cos(ang) * (0.9 + spread) + (rnd() - 0.5) * 0.25, (k - 0.5) * 7.5, Math.sin(ang) * (0.9 + spread) + (rnd() - 0.5) * 0.25], i * 3);
+      r[i] = rnd();
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(a, 3));
+    geo.setAttribute("target", new THREE.BufferAttribute(b, 3));
+    geo.setAttribute("seed", new THREE.BufferAttribute(r, 1));
+    const uniforms = { uTime: { value: 0 }, uMorph: { value: 0 }, uMouse: { value: new THREE.Vector2(9, 9) }, uSize: { value: small ? 4.2 : 3.4 }, uPx: { value: renderer.getPixelRatio() } };
+    const mat = new THREE.ShaderMaterial({
+      uniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      vertexShader: `
+        attribute vec3 target; attribute float seed;
+        uniform float uTime, uMorph, uSize, uPx; uniform vec2 uMouse;
+        varying float vTone; varying float vFade;
+        // Ashima simplex noise 3D (MIT)
+        vec4 permute(vec4 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+        vec4 taylorInvSqrt(vec4 r){ return 1.79284291400159 - 0.85373472095314 * r; }
+        float snoise(vec3 v){
+          const vec2 C = vec2(1.0/6.0, 1.0/3.0); const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+          vec3 i = floor(v + dot(v, C.yyy)); vec3 x0 = v - i + dot(i, C.xxx);
+          vec3 g = step(x0.yzx, x0.xyz); vec3 l = 1.0 - g; vec3 i1 = min(g.xyz, l.zxy); vec3 i2 = max(g.xyz, l.zxy);
+          vec3 x1 = x0 - i1 + C.xxx; vec3 x2 = x0 - i2 + 2.0 * C.xxx; vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+          i = mod(i, 289.0);
+          vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+          float n_ = 1.0/7.0; vec3 ns = n_ * D.wyz - D.xzx;
+          vec4 j = p - 49.0 * floor(p * ns.z * ns.z); vec4 x_ = floor(j * ns.z); vec4 y_ = floor(j - 7.0 * x_);
+          vec4 x = x_ * ns.x + ns.yyyy; vec4 y = y_ * ns.x + ns.yyyy; vec4 h = 1.0 - abs(x) - abs(y);
+          vec4 b0 = vec4(x.xy, y.xy); vec4 b1 = vec4(x.zw, y.zw);
+          vec4 s0 = floor(b0) * 2.0 + 1.0; vec4 s1 = floor(b1) * 2.0 + 1.0; vec4 sh = -step(h, vec4(0.0));
+          vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy; vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+          vec3 p0 = vec3(a0.xy, h.x); vec3 p1 = vec3(a0.zw, h.y); vec3 p2 = vec3(a1.xy, h.z); vec3 p3 = vec3(a1.zw, h.w);
+          vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3))); p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+          vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0); m = m * m;
+          return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+        }
+        void main(){
+          float t = uTime * 0.12;
+          // each particle leaves the cloud a little earlier or later than its neighbours
+          float m = smoothstep(0.0, 1.0, clamp(uMorph * 1.35 - seed * 0.35, 0.0, 1.0));
+          vec3 p = mix(position, target, m);
+          // swirl the helix and drift everything through 3D noise
+          float ang = t * 1.6 + p.y * 0.35 * m; float c = cos(ang), s = sin(ang);
+          p.xz = mat2(c, -s, s, c) * p.xz;
+          vec3 q = p * 0.55 + vec3(0.0, t, 0.0);
+          p += vec3(snoise(q), snoise(q + 17.1), snoise(q + 31.7)) * (0.9 - 0.45 * m);
+          float tw = (1.0 - m) * (0.9 * sin(uTime * 0.21) + 0.6) * length(p.xz); float ct = cos(tw), st = sin(tw); p.xz = mat2(ct, -st, st, ct) * p.xz;
+          p.y += (1.0 - m) * 0.35 * sin(length(p.xz) * 3.0 - uTime * 1.1);
+          vec4 mv = modelViewMatrix * vec4(p, 1.0);
+          gl_Position = projectionMatrix * mv;
+          // push away from the cursor, in screen space
+          vec2 ndc = gl_Position.xy / gl_Position.w; vec2 d = ndc - uMouse; float dl = length(d * vec2(1.6, 1.0));
+          float push = 0.22 * exp(-dl * dl * 26.0);
+          gl_Position.xy += normalize(d + 1e-4) * push * gl_Position.w;
+          vTone = fract(snoise(p * 0.9 + t * 2.0) * 0.6 + 0.5 + seed * 0.3 + length(p) * 0.18 - uTime * 0.08);
+          vFade = 0.55 + 0.45 * sin(uTime * 1.7 + seed * 40.0);
+          gl_PointSize = uSize * uPx * (1.0 + 2.2 * push * 8.0) * (5.5 / -mv.z) * (0.7 + seed);
+        }`,
+      fragmentShader: `
+        varying float vTone; varying float vFade;
+        // the agar palette, cycled: rust, ember, amber, cream, with a hot pink-gold flare for the trip
+        vec3 pal(float x){
+          vec3 c0 = vec3(0.54, 0.25, 0.07), c1 = vec3(0.77, 0.38, 0.12), c2 = vec3(0.95, 0.66, 0.23), c3 = vec3(0.98, 0.91, 0.77), c4 = vec3(1.0, 0.45, 0.32);
+          x = fract(x) * 5.0;
+          if (x < 1.0) return mix(c0, c1, x); if (x < 2.0) return mix(c1, c2, x - 1.0); if (x < 3.0) return mix(c2, c3, x - 2.0); if (x < 4.0) return mix(c3, c4, x - 3.0); return mix(c4, c0, x - 4.0);
+        }
+        void main(){
+          vec2 uv = gl_PointCoord - 0.5; float d = length(uv);
+          float a = smoothstep(0.5, 0.0, d); a *= a;
+          gl_FragColor = vec4(pal(vTone) * a * vFade * 1.25, a);
+        }`,
+    });
+    const pts = new THREE.Points(geo, mat); scene.add(pts);
+    const size = () => { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+    size(); addEventListener("resize", size);
+    const target = new THREE.Vector2(9, 9);
+    addEventListener("pointermove", (e) => target.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1)), { passive: true });
+    let last = performance.now(), time = 0;
+    const loop = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (!document.hidden) {
+        time += dt; uniforms.uTime.value = time;
+        const max = Math.max(1, document.documentElement.scrollHeight - innerHeight), goal = Math.min(1, scrollY / (max * 0.45));
+        uniforms.uMorph.value += (goal - uniforms.uMorph.value) * Math.min(1, dt * 2.5);
+        uniforms.uMouse.value.lerp(target, Math.min(1, dt * 6));
+        pts.rotation.y = time * 0.05 + uniforms.uMouse.value.x * 0.25; pts.rotation.x = -uniforms.uMouse.value.y * 0.15;
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+    canvas.classList.add("on");
+  } catch (e) { canvas.remove(); }   // no WebGL, or opened from disk: the page works the same without it
+}
+</script>
+
