@@ -94,11 +94,6 @@ a { color: inherit; }
 .kicker { margin: 10px 0 18px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); }
 .kicker i { text-transform: none; letter-spacing: 0.04em; }
 .manifesto { max-width: 34ch; font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; letter-spacing: -0.015em; margin: 34px 0 0; text-wrap: pretty; }
-#boot { position: fixed; inset: 0; z-index: 100; background: var(--ink); display: grid; place-items: center; font-family: var(--mono); color: var(--paper); pointer-events: none; }
-#boot pre { font: inherit; font-size: clamp(11px, 1.3vw, 15px); line-height: 2; margin: 0; padding: 0 20px; white-space: pre-wrap; max-width: 100%; }
-#boot .hd { color: var(--amber); letter-spacing: 0.2em; }
-#boot .ok { color: var(--amber); }
-#boot img { width: 64px; height: 64px; image-rendering: pixelated; display: block; margin-bottom: 18px; }
 .hint { max-width: 62ch; margin: 22px 0 0; line-height: 1.7; opacity: 0.7; }
 #fieldLabels { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
 .hero .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
@@ -254,7 +249,6 @@ footer .big { font-size: clamp(40px, 8vw, 110px); letter-spacing: -0.05em; line-
 <canvas id="field" aria-hidden="true"></canvas>
 <canvas id="fieldLabels" aria-hidden="true"></canvas>
 
-<div id="boot" aria-hidden="true"><div><img src="__LOGO__" alt=""><pre id="bootText"></pre></div></div>
 <div class="page">
   <div class="cabar mono" role="note">CA: <button type="button" class="ca" id="caCopy" data-ca="HKRvkxVUTT3ySfebkod9j5KL2M57KYzzmVBy4C6Vpump" aria-label="Copy the contract address">HKRvkxVUTT3ySfebkod9j5KL2M57KYzzmVBy4C6Vpump</button><span id="caMsg" aria-live="polite"></span></div>
   <header class="nav">
@@ -1122,25 +1116,6 @@ function loop(now) {
 }
 function onResize() { field.resize(); bodyStage.resize(); seedWorms(); sizeGlobe(); sizeLabels(); }
 let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(onResize, 150); });
-/* boot sequence: the real counts, typed out, then the page */
-{
-  const boot = $("boot"), chem = CONNECTOME.edges.filter((e) => e.k === "chem").length, gap = CONNECTOME.edges.length - chem;
-  const lines = [["hd", "NEMA  //  living wiring system"], ["", ""], ["", "> loading connectome ............ " + CONNECTOME.neurons.length + " neurons"],
-    ["", "> wiring chemical synapses ...... " + chem.toLocaleString("en-US")], ["", "> wiring gap junctions .......... " + gap.toLocaleString("en-US")],
-    ["", "> settling to rest .............. stable"], ["ok", "> nervous system online"]];
-  const html = (n) => { let left = n, out = ""; for (const [cls, t] of lines) { const k = Math.max(0, Math.min(t.length, left)); left -= t.length; out += `<span class="${cls}">${t.slice(0, k)}</span>\n`; } return out; };
-  const total = lines.reduce((a, l) => a + l[1].length, 0), t0 = performance.now(), dur = 1400, hold = 450, fade = 380;
-  const done = () => { boot.remove(); };
-  if (reduce) done();
-  else {
-    const tick = (now) => { const t = now - t0;
-      $("bootText").innerHTML = html(Math.floor(Math.min(1, t / dur) * total));
-      if (t > dur + hold) boot.style.opacity = String(Math.max(0, 1 - (t - dur - hold) / fade));
-      if (t > dur + hold + fade) return done();
-      requestAnimationFrame(tick); };
-    requestAnimationFrame(tick);
-  }
-}
 sizeGlobe(); sizeLabels(); refreshInputs(); state.autoTimer = 1.2;
 requestAnimationFrame(loop);
 })();
